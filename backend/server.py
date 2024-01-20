@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from flask import Flask, redirect, url_for, render_template, request
 import datetime
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")
 
 query = ""
 product_urls = [
