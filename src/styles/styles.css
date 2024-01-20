@@ -1,17 +1,45 @@
 :root {
   --main1: #424242;
   --main2: #FAFAFA;
+  --accent1: #06191D;
 }
 
 html, body {
   background-color: var(--main1);
   scroll-behavior: smooth;
+  font-family: 'Trebuchet MS', sans-serif;
+}
+
+.header {
+  text-align: left;
+  background-color: var(--accent1); 
+}
+
+.transition {
+  background-color: var(--accent1);
+  font-size: 3rem;
+}
+
+#title {
+  padding-top: 10%;
+  padding-bottom: 0%;
+  padding-left: 15%;
+  color: whitesmoke;
+  font-size: 1000%;
+}
+
+#subtitle {
+  padding-left: 15%;
+  padding-bottom: 10%;
+  padding-top: 0%;
+  color: var(--main1);
 }
 
 #left {
+  margin-top: 1vh;
   direction: rtl;
   background-color: var(--main1);
-  height: 100vh;
+  height: 99vh;
   color: var(--main2);
   overflow-y: scroll;
 }
@@ -37,8 +65,9 @@ html, body {
 }
 
 #right {
+  margin-top: 1vh;
   background-color: var(--main2);
-  height: 100vh;
+  height: 99vh;
   overflow-y: scroll;
   border-radius: 25px 25px 0px 0px;
   color: var(--main1);
