@@ -1,0 +1,65 @@
+:root {
+  --main1: #424242;
+  --main2: #FAFAFA;
+}
+
+html, body {
+  background-color: var(--main1);
+  scroll-behavior: smooth;
+}
+
+#left {
+  direction: rtl;
+  background-color: var(--main1);
+  height: 100vh;
+  color: var(--main2);
+  overflow-y: scroll;
+}
+
+#left::-webkit-scrollbar {
+  width: 1vh;
+  background-color: #6665;
+}
+
+#left::-webkit-scrollbar:hover {
+  width: 1vh;
+  background-color: #666;
+}
+
+#left::-webkit-scrollbar-thumb {
+  background-color: #4445;
+  border-radius: 100%;
+}
+
+#left::-webkit-scrollbar-thumb:hover {
+  background-color: #444;
+  border-radius: 100%;
+}
+
+#right {
+  background-color: var(--main2);
+  height: 100vh;
+  overflow-y: scroll;
+  border-radius: 25px 25px 0px 0px;
+  color: var(--main1);
+}
+
+#right::-webkit-scrollbar {
+  width: 1vh;
+  background-color: #6665;
+}
+
+#right::-webkit-scrollbar:hover {
+  width: 1vh;
+  background-color: #666;
+}
+
+#right::-webkit-scrollbar-thumb {
+  background-color: #4445;
+  border-radius: 100%;
+}
+
+#right::-webkit-scrollbar-thumb:hover {
+  background-color: #444;
+  border-radius: 100%;
+}
