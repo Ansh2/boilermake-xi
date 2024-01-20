@@ -3,6 +3,9 @@ import './styles/App.css';
 import './styles/styles.css';
 import './bootstrap/dist/css/bootstrap.min.css';
 import { BsChevronCompactDown } from "react-icons/bs";
+import { LuClipboardList } from "react-icons/lu";
+import { LuClipboardCheck } from "react-icons/lu";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 function App() {
   const scroll = (e) => {
@@ -17,6 +20,10 @@ function App() {
             <h3 id='subtitle'>(Budget Helper AI)</h3>
           </div>
           <div className="col-md-6 col-xs-12">
+            <h3 className="sub">Your Personal Finance Bro</h3>
+            <LuClipboardList className="icon1"/>
+            <FaArrowRightLong className="icon2"/>
+            <LuClipboardCheck className="icon3" /> 
           </div>
         </div>
         <div className='row transition'>

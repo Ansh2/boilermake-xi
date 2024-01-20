@@ -35,6 +35,37 @@ html, body {
   color: var(--main1);
 }
 
+.sub {
+  padding-top: 17%;
+  color: var(--main1);
+  padding-bottom: 0%;
+  padding-left: 15%;
+}
+
+.icon1 {
+  font-size: 13rem;
+  color: whitesmoke;
+  padding-left: 15%;
+}
+
+.icon2 {
+  font-size: 5rem;
+  color: whitesmoke;
+  padding-left: 7.5%;
+}
+
+.icon3 {
+  font-size: 13rem;
+  color: whitesmoke;
+  padding-left: 7.5%;
+  padding-right: 7.5%;
+}
+
+
+#display {
+  overflow-y: hidden;
+}
+
 #left {
   margin-top: 1vh;
   direction: rtl;
