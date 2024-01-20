@@ -39,15 +39,12 @@ function App() {
       <div className="container-fluid">
         <div className="row" id='main'>
           <div className="col-md-6 col-xs-12" id='left'>
+            <ShoppingList />
           </div>
           <div className="col-md-6 col-xs-12" id='right'>
-            <Chat/>
+            <Chat />
           </div>
         </div>
-      </div>
-
-      <div>
-        <ShoppingList />
       </div>
     </div>
   );

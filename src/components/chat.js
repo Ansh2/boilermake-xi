@@ -1,5 +1,7 @@
 import React from "react";
 import { FaArrowAltCircleUp } from "react-icons/fa";
+import logo from "../assets/logo.png";
+import "./chat.css";
 
 class Chat extends React.Component {
   render() {
@@ -9,7 +11,7 @@ class Chat extends React.Component {
           <ul className="messages">
             <li className="msg">
               <span className="msg-span">
-                <img src="" /> <b>BHAI</b> <br/> 
+                <img src={logo} alt="Logo Image" /> <b>BHAI</b> <br/> 
                 Please Fill Out the Form
               </span>
             </li>
