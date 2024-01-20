@@ -6,6 +6,7 @@ import { BsChevronCompactDown } from "react-icons/bs";
 import { LuClipboardList } from "react-icons/lu";
 import { LuClipboardCheck } from "react-icons/lu";
 import { FaArrowRightLong } from "react-icons/fa6";
+import Chat from "./components/chat.js";
 
 function App() {
   const scroll = (e) => {
@@ -35,6 +36,7 @@ function App() {
           <div className="col-md-6 col-xs-12" id='left'>
           </div>
           <div className="col-md-6 col-xs-12" id='right'>
+            <Chat/>
           </div>
         </div>
       </div>
