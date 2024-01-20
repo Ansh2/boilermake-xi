@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import SearchForm from "./components/Chat"
-import ShoppingList from "./ShoppingList.js";
 import "./styles/App.css";
 import "./styles/styles.css";
 import "./bootstrap/dist/css/bootstrap.min.css";
@@ -89,7 +88,6 @@ function App() {
           <div id="app">
               {" "}
               {/*These are the files you want to import for react app*/}
-              <ShoppingList/>
           </div>
       </div>
   );

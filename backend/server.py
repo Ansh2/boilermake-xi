@@ -1,9 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
-from flask import Flask, redirect, url_for, render_template, request
+from flask import Flask, redirect, url_for, render_template, request, jsonify
+from flask_cors import CORS
 import datetime
 
 app = Flask(__name__, template_folder="templates")
+CORS(app, origins=['http://localhost:3000'])
 
 query = ""
 product_urls = [
@@ -18,6 +20,28 @@ def search():
         return redirect(url_for("scrape"))
     else:
         return render_template("temp.html")
+
+
+@app.route('/post_data', methods=['POST', 'OPTIONS'])
+def handle_post_data():
+    if request.method == 'OPTIONS':
+        # Respond to preflight request
+        response = jsonify({'message': 'Preflight request successful'})
+        response.headers.add('Access-Control-Allow-Methods', 'POST')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        return response
+
+    # Handle actual POST request here
+    try:
+        data = request.get_json()
+        # Process the data and return a response
+
+        response = jsonify({'message': data})
+        return response
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
 
 @app.route("/data")
 def scrape():
