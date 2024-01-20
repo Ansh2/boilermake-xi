@@ -25,5 +25,6 @@ for url in product_urls:
     })
 
 df = pd.DataFrame(columns=["title", "price"])
-df = df.append(product_data)
+df = df.assign(title=product_data[0])
+df = df.assign(price=product_data[1])
 df.to_csv("result.csv", index=False)
