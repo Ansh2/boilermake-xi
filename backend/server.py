@@ -1,16 +1,13 @@
+import pandas as pd
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, SoupStrainer
 from flask import Flask, redirect, url_for, render_template, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__, template_folder="templates")
 CORS(app, origins=['http://localhost:3000'])
 
-query = ""
-product_urls = [
-    "https://www.walmart.com/ip/AT-T-iPhone-14-128GB-Midnight/1756765288",
-    "https://www.walmart.com/ip/Straight-Talk-Apple-iPhone-14-Pro-12 8GB-Silver-Prepaid-Smartphone-Locked-to-Straight-Talk/1667543930"
-]
+term = ""
 @app.route("/search", methods=["POST","GET"])
 def search():
     if (request.method == "POST"):
@@ -34,26 +31,35 @@ def handle_post_data():
     try:
         print('request recieved')
         print(request.json)
-        data = request.json['key2']
-
+        term = request.json['search']
+        print(term)
         # print(jsonify(data))
         # Process the data and return a response
 
-        response = jsonify({'message': data})
-        print(response)
-        return response
+        #response = jsonify({'message': term})
+        #print(response)
+        return redirect(url_for("scrape", word=term))
+        #return response
 
     except Exception as e:
         return jsonify({'error': str(e)})
 
 
-@app.route("/data")
-def scrape():
+@app.route("/data/<word>", methods=['GET'])
+def scrape(word):
+    query = "https://www.walmart.com/search?q=" + str(word)
+    print(query)
     headers = {
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'}
-
+    response = requests.get(query, headers=headers)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    #print(soup.prettify())
+    product_urls = []
     product_data = []
-
+    for a in soup.find_all('a', {'class': 'absolute w-100 h-100 z-1 hide-sibling-opacity'}, href=True):
+        if ("walmart" not in a['href']):
+            base = "https://www.walmart.com" + a['href']
+            product_urls.append(base)
     # Search url: https://www.walmart.com/search?q=
 
     for url in product_urls:
@@ -65,8 +71,10 @@ def scrape():
             "title": title,
             "price": price,
         })
-
-    return str(product_data)
+    df = pd.DataFrame(columns=["title", "price"])
+    df = pd.concat([df, pd.DataFrame(product_data)])
+    df.to_csv("result.csv", index=False)
+    return jsonify({'message': term})
 
 if __name__ == "__main__":
     app.run(debug=True)

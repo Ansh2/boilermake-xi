@@ -6,8 +6,7 @@ import "./bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [formData, setFormData] = useState({
-    key1: "",
-    key2: "",
+    search: "",
   });
   const [data, setdata] = useState("");
 
@@ -66,23 +65,12 @@ function App() {
           </div>
           <form action="{{ url_for('post_data') }}" onSubmit={handleSubmit} method="post">
               <label>
-                  Key 1:
+                  search:
                   <input
-                      id={"key1"}
+                      id={"search"}
                     type="text"
-                    name="key1"
-                    value={formData.key1}
-                    onChange={handleInputChange}
-                  />
-                </label>
-                <br />
-                <label>
-                  Key 2:
-                  <input
-                      id={"key2"}
-                    type="text"
-                    name="key2"
-                    value={formData.key2}
+                    name="search"
+                    value={formData.search}
                     onChange={handleInputChange}
                   />
                 </label>
