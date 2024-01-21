@@ -1,11 +1,27 @@
 import pandas as pd
 import requests
+import os
+import openai
 from bs4 import BeautifulSoup, SoupStrainer
 from flask import Flask, redirect, url_for, render_template, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__, template_folder="templates")
 CORS(app, origins=['http://localhost:3000'])
+
+#REPLACE WITH ACTUAL KEY
+openai.api_key = os.getenv('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')
+prompt = "Hello!"
+
+completion = openai.Completion.create(
+    model='gpt-3.5-turbo',
+    messages=[
+        {'role': 'system', 'content': 'You want to help people budget their expenses.'},
+        {'role': 'user', 'content': prompt}
+    ]
+)
+print(completion.choices[0].message)
+
 
 term = ""
 @app.route("/search", methods=["POST","GET"])
