@@ -1,0 +1,30 @@
+/*centering all of the buttons and input boxes*/
+.input-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+/*code for search bar sizeing*/
+.form-control {
+  width: 70%;
+  max-width: 300px;
+}
+
+.input-group-append {
+  margin-left: 10px;
+}
+
+/*the styling i impelemented for the button*/
+.input-group-append button {
+  background-color: lightcoral;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.input-group-append button:hover {
+  background-color: darkred;
+}
