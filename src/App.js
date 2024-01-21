@@ -1,5 +1,4 @@
 import React from "react";
-import ShoppingList from "./ShoppingList.js";
 import "./styles/App.css";
 import "./styles/styles.css";
 import { FaArrowAltCircleUp } from "react-icons/fa";
@@ -10,6 +9,7 @@ import { LuClipboardCheck } from "react-icons/lu";
 import { FaArrowRightLong } from "react-icons/fa6";
 import "./styles/signin.css";
 import "./styles/chat.css";
+import "./styles/shoppinglist.css";
 import logo from "./assets/logo.png";
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
@@ -17,7 +17,8 @@ import { getFirestore, collection, orderBy, query, limit, serverTimestamp, addDo
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useState } from "react";
-import OpenAI from "openai";
+import { wait } from "@testing-library/user-event/dist/utils/index.js";
+const OpenAI = require("openai");
 //require("dotenv").config();
 
 const firebaseConfig = {
@@ -35,7 +36,10 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const firestore = getFirestore(app);
 const provider = new GoogleAuthProvider();
-const openai = new OpenAI();//process.env.OPENAI_KEY
+const openai = new OpenAI({
+  apiKey: "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",
+  dangerouslyAllowBrowser: true,
+});//process.env.OPENAI_KEY
 
 function SignIn() {
   const signInWithGoogle = () => {
@@ -74,6 +78,7 @@ function Chat() {
     const completion = await openai.chat.completions.create({
       messages: [{"role": "system", "content": "You are a financial budgeting assistant helping individuals find cheaper alternatives to products and good deals."}, {"role": "user","content": {message}}],
       model: "gpt-3.5-turbo",
+      max_tokens: 2048,
     });
 
     const text = completion.choices[0];
@@ -115,7 +120,22 @@ function Msg(props) {
         {text}
       </span>
     </li>
-);
+  );
+}
+
+function ShoppingList() {
+  const [textarea, setTextarea] = useState('');
+
+  const handleChange = (event) => {
+    setTextarea(event.target.value)
+  }
+  return (
+    <form >
+      <textarea value={textarea} onChange={handleChange} placeholder="Item1,Item2,Item3"/>
+      <br/>
+      <button type="submit" id="listSubmit">Submit</button>
+    </form>
+  );
 }
 
 function App() {

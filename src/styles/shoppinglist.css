@@ -1,0 +1,27 @@
+textarea {
+  width: 100%;
+  height: 90vh;
+  background-color: #424242;
+  color: #FAFAFA;
+  margin-top: 1%;
+  padding: 5%;
+}
+
+textarea:focus {
+  outline: None;
+  direction: ltr;
+}
+
+#listSubmit {
+  width: 100%;
+  height: auto;
+  background-color: #FAFAFA;
+  border: None;
+  transition: all 0.5s;
+}
+
+#listSubmit:hover {
+  background-color: #424242;
+  color: #FAFAFA;
+  border: 1px solid #FAFAFA;
+}
