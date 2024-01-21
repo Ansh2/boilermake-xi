@@ -25,18 +25,20 @@ function App() {
   };
   const handleSubmit = async (e) => {
       e.preventDefault();
+      console.log(formData);
       try {
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+          var rawData = JSON.stringify(formData)
           const response = await
               fetch("http://localhost:5000/post_data", {
                   method: "POST",
-                  headers: {
-                      "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(data),
+                  body: rawData,
+                  headers: myHeaders
               });
           if (response.ok) {
-              const result = await response.json();
-              console.log(result.message);
+              // const result = await response;
+              document.getElementById("test").innerText = (await response.json()).message;
           } else {
               console.error("Failed to post data");
           }
@@ -48,7 +50,7 @@ function App() {
       <div className="App">
           <SearchForm/>
           <header className="App-header">
-              <h1>React and flask</h1>
+              <h1 id="test">React and flask</h1>
               {/* Calling a data from setdata for showing */}
               <p>{data}</p>
           </header>
@@ -62,10 +64,11 @@ function App() {
                   </div>
               </div>
           </div>
-          <form onSubmit={handleSubmit}>
+          <form action="{{ url_for('post_data') }}" onSubmit={handleSubmit} method="post">
               <label>
                   Key 1:
                   <input
+                      id={"key1"}
                     type="text"
                     name="key1"
                     value={formData.key1}
@@ -76,6 +79,7 @@ function App() {
                 <label>
                   Key 2:
                   <input
+                      id={"key2"}
                     type="text"
                     name="key2"
                     value={formData.key2}

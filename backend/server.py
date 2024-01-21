@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 from flask import Flask, redirect, url_for, render_template, request, jsonify
 from flask_cors import CORS
-import datetime
 
 app = Flask(__name__, template_folder="templates")
 CORS(app, origins=['http://localhost:3000'])
@@ -33,10 +32,14 @@ def handle_post_data():
 
     # Handle actual POST request here
     try:
-        data = request.get_json()
+        print('request recieved')
+        print(request.data.decode())
+        data = request.json['key2']
+        print(jsonify(data))
         # Process the data and return a response
 
         response = jsonify({'message': data})
+        print(response)
         return response
 
     except Exception as e:
