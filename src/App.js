@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ShoppingList from "./ShoppingList.js";
 import "./styles/App.css";
 import "./styles/styles.css";
@@ -10,6 +10,24 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import Chat from "./components/chat.js";
 
 function App() {
+  const [formData, setFormData] = useState({
+    search: "",
+  });
+  const [data, setdata] = useState("");
+
+  // Using useEffect for single rendering
+  useEffect(() => {
+    // Using fetch to fetch the api from
+    // flask server it will be redirected to proxy
+
+  }, []);
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const scroll = (e) => {
     document.getElementById("main").scrollIntoView();
   };
@@ -42,7 +60,8 @@ function App() {
             <ShoppingList />
           </div>
           <div className="col-md-6 col-xs-12" id='right'>
-            <Chat />
+            <Chat formData={formData} setFormData={setFormData}
+                  data={data} setdata={setdata} handleInputChange={handleInputChange}/>
           </div>
         </div>
       </div>
