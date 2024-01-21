@@ -33,9 +33,10 @@ def handle_post_data():
     # Handle actual POST request here
     try:
         print('request recieved')
-        print(request.data.decode())
+        print(request.json)
         data = request.json['key2']
-        print(jsonify(data))
+
+        # print(jsonify(data))
         # Process the data and return a response
 
         response = jsonify({'message': data})
