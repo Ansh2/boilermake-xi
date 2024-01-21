@@ -1,8 +1,13 @@
+import os
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup, SoupStrainer
 from flask import Flask, redirect, url_for, render_template, request, jsonify
 from flask_cors import CORS
+from openai import OpenAI
+os.environ["OPENAI_API_KEY"] = "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"
+
+client = OpenAI()
 
 app = Flask(__name__, template_folder="templates")
 CORS(app, origins=['http://localhost:3000'])
@@ -79,7 +84,16 @@ def scrape(word):
 
 
     df.to_csv("result.csv", index=False)
-    return jsonify({'message': term})
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        max_tokens = 2048,
+        messages = [
+            {"role": "system", "content": "You are a financial budgeting assistant helping individuals find cheaper alternatives to products and good deals."},
+            {"role": "user", "content": "Given the following csv file, please return the best priced products and list them one at a time for each type of product"},
+            {"role": "user", "content": df}
+        ],
+    )
+    return jsonify({'message': response['choices'][0]['message']['content']})
 
 if __name__ == "__main__":
     app.run(debug=True)

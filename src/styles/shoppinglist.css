@@ -5,6 +5,7 @@ textarea {
   color: #FAFAFA;
   margin-top: 1%;
   padding: 5%;
+  direction: ltr;
 }
 
 textarea:focus {

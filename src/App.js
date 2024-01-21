@@ -148,7 +148,15 @@ function ShoppingList() {
               });
           if (response.ok) {
               // const result = await response;
-              document.getElementById("test").innerText = (await response.json()).message;
+              const result = (await response.json()).message;
+              const messagesRef = collection(firestore, auth.currentUser.email);
+              await addDoc( messagesRef, {
+              text: result,
+              createdAt: serverTimestamp(),
+              uid: "BHAI",
+              url: logo
+            });
+              
           } else {
               console.error("Failed to post data");
           }
