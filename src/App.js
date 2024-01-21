@@ -126,12 +126,40 @@ function Msg(props) {
 function ShoppingList() {
   const [textarea, setTextarea] = useState('');
 
-  const handleChange = (event) => {
-    setTextarea(event.target.value)
+  const handleInputChange = (e) => {
+    setTextarea(e.target.value)
   }
+  const [formData, setFormData] = useState({
+    search: "",
+  });
+  const [data, setdata] = useState("");
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      console.log(textarea);
+      try {
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+          var rawData = JSON.stringify(textarea)
+          const response = await
+              fetch("http://localhost:5000/post_data", {
+                  method: "POST",
+                  body: rawData,
+                  headers: myHeaders
+              });
+          if (response.ok) {
+              // const result = await response;
+              document.getElementById("test").innerText = (await response.json()).message;
+          } else {
+              console.error("Failed to post data");
+          }
+      } catch (error) {
+          console.error("Error:", error);
+      }
+  }
+
   return (
-    <form >
-      <textarea value={textarea} onChange={handleChange} placeholder="Item1,Item2,Item3"/>
+    <form action="{{ url_for('post_data') }}" onSubmit={handleSubmit} method="post">
+      <textarea id={"shoppingList"} name="shoppingList" value={textarea} onChange={handleInputChange} placeholder="Item1,Item2,Item3"/>
       <br/>
       <button type="submit" id="listSubmit">Submit</button>
     </form>
